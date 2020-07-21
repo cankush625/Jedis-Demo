@@ -1,6 +1,9 @@
 package Jedis_demo.jedis_demo;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -28,5 +31,16 @@ public class AppTest {
     	String value = "jediset";
     	int result = app.setAdd(pool, setName, value);
     	assertEquals(1, result);
+    }
+    
+    @Test
+    public void getSetValues() {
+    	CreateJedisPool jedisPool = new CreateJedisPool();
+    	JedisPool pool = jedisPool.createPool();
+    	
+    	App app = new App();
+    	String setName = "setdemo";
+    	Set<String> result = app.getSetValue(pool, setName);
+    	assertTrue(result.contains("jediset"));
     }
 }
