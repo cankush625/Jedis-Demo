@@ -19,12 +19,14 @@ public class AppTest {
     }
     
     @Test
-    public void setAdd() {
+    public void setAddTest() {
     	CreateJedisPool jedisPool = new CreateJedisPool();
     	JedisPool pool = jedisPool.createPool();
     	
     	App app = new App();
-    	int result = app.setAdd(pool);
+    	String setName = "setdemo";
+    	String value = "jediset";
+    	int result = app.setAdd(pool, setName, value);
     	assertEquals(1, result);
     }
 }
