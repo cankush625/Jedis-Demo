@@ -23,10 +23,8 @@ public class AppTest {
     	CreateJedisPool jedisPool = new CreateJedisPool();
     	JedisPool pool = jedisPool.createPool();
     	
-    	try (Jedis jedis = pool.getResource()) {
-    		Long result = jedis.sadd("setdemo", "jedisset");
-    		Boolean checkIfValuePresent = jedis.sismember("setdemo", "jedisset");
-    		assert(checkIfValuePresent);
-    	}
+    	App app = new App();
+    	int result = app.setAdd(pool);
+    	assertEquals(1, result);
     }
 }

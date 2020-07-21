@@ -1,14 +1,26 @@
 package Jedis_demo.jedis_demo;
 
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
 public class App {
+	public int setAdd(JedisPool pool) {
+		try (Jedis jedis = pool.getResource()) {
+			Long result = jedis.sadd("setdemo", "jset");
+			if (result != 0) {
+				System.out.println("Entry succesful to the database");
+				return 1;
+			}
+			return 0;
+		}
+	}
+	
     public static void main( String[] args ){
-    	// Creating connection pool
-        final JedisPoolConfig poolConfig = new JedisPoolConfig();
-        poolConfig.setMaxTotal(64);
-        poolConfig.setMaxIdle(64);
-		JedisPool jedisPool = new JedisPool(poolConfig, "127.0.0.1", 6379);
+    	CreateJedisPool Jedispool = new CreateJedisPool();
+    	
+    	JedisPool pool = Jedispool.createPool();
+    	
+		App app = new App();
+		app.setAdd(pool);
     }
 }
