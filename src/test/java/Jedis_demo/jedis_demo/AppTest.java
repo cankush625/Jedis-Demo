@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 public class AppTest {
     @Test
@@ -15,5 +16,17 @@ public class AppTest {
     	String value = jedis.get("hello");
         assertEquals(value, "world");
         jedis.close();
+    }
+    
+    @Test
+    public void setAddTest() {
+    	CreateJedisPool jedisPool = new CreateJedisPool();
+    	JedisPool pool = jedisPool.createPool();
+    	
+    	App app = new App();
+    	String setName = "setdemo";
+    	String value = "jediset";
+    	int result = app.setAdd(pool, setName, value);
+    	assertEquals(1, result);
     }
 }
